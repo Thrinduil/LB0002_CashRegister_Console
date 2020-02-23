@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace CashRegister_Console
 {
@@ -34,11 +35,42 @@ namespace CashRegister_Console
 
         public void PrintChange(List<int> change)
         {
-            Console.WriteLine("Change:");
+            Console.WriteLine("Växel tillbaka:");
+            PrintDenominator("tusen", change.Where(item => item == 1000).Count(), false);
+            PrintDenominator("femhundra", change.Where(item => item == 500).Count(), false);
+            PrintDenominator("tvåhundra", change.Where(item => item == 200).Count(), false);
+            PrintDenominator("hundra", change.Where(item => item == 100).Count(), false);
+            PrintDenominator("femtio", change.Where(item => item == 50).Count(), false);
+            PrintDenominator("tjugo", change.Where(item => item == 20).Count(), false);
+            PrintDenominator("tio", change.Where(item => item == 10).Count(), true);
+            PrintDenominator("fem", change.Where(item => item == 5).Count(), true);
+            PrintDenominator("två", change.Where(item => item == 2).Count(), true);
+            PrintDenominator("en", change.Where(item => item == 1).Count(), true);
+        }
 
-            for (int i = 0; i < change.Count; i++)
+        private void PrintDenominator(string value, int quantity, bool coin)
+        {
+            string moneyTypeSingular;
+            string moneyTypePlural;
+
+            if (coin)
             {
-                Console.WriteLine(change[i]);
+                moneyTypeSingular = "krona";
+                moneyTypePlural = "kronor";
+            }
+            else
+            {
+                moneyTypeSingular = "lapp";
+                moneyTypePlural = "lappar";
+            }
+
+            if (quantity == 1)
+            {
+                Console.WriteLine("{0} {1}{2}", quantity, value, moneyTypeSingular);
+            }
+            else if (quantity > 1)
+            {
+                Console.WriteLine("{0} {1}{2}", quantity, value, moneyTypePlural);
             }
         }
     }
@@ -48,8 +80,8 @@ namespace CashRegister_Console
         {
             CashRegister cashRegister = new CashRegister();
 
-            int price = 123;
-            int payed = 500;
+            int price = 121;
+            int payed = 500000;
 
             List<int> change = cashRegister.MakeChange(price, payed);
 
