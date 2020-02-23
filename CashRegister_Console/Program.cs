@@ -9,6 +9,18 @@ namespace CashRegister_Console
     {
         private readonly int[] drawer = new int[] { 1000, 500, 200, 100, 50, 20, 10, 5, 2, 1 };
 
+        public Tuple<int, int> GetPriceAndPayed()
+        {
+            Console.Write("Ange pris: ");
+            int price = Convert.ToInt32(Console.ReadLine());
+
+            Console.Write("Betalt: ");
+            int payed = Convert.ToInt32(Console.ReadLine());
+
+            var priceAndPayed = new Tuple<int, int>(price, payed);
+            return priceAndPayed;
+        }
+
         public List<int> MakeChange(int price, int payed)
         {
             int difference = payed - price;
@@ -74,16 +86,16 @@ namespace CashRegister_Console
             }
         }
     }
+
     class Program
     {
         static void Main(string[] args)
         {
             CashRegister cashRegister = new CashRegister();
 
-            int price = 121;
-            int payed = 500000;
+            Tuple<int, int> priceAndPayed = cashRegister.GetPriceAndPayed();
 
-            List<int> change = cashRegister.MakeChange(price, payed);
+            List<int> change = cashRegister.MakeChange(priceAndPayed.Item1, priceAndPayed.Item2);
 
             cashRegister.PrintChange(change);
 
