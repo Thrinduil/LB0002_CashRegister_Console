@@ -17,6 +17,13 @@ namespace CashRegister_Console
             Console.Write("Betalt: ");
             int payed = Convert.ToInt32(Console.ReadLine());
 
+            if (price > payed)
+            {
+                Console.WriteLine("Fel: Kunden betalade för lite. Snåljåp.");
+                Console.ReadLine();
+                Environment.Exit(1);
+            }
+
             var priceAndPayed = new Tuple<int, int>(price, payed);
             return priceAndPayed;
         }
