@@ -9,6 +9,10 @@ namespace CashRegister_Console
     {
         private readonly int[] drawer = new int[] { 1000, 500, 200, 100, 50, 20, 10, 5, 2, 1 };
 
+        /// <summary>
+        /// Gets price for item and money tentered by customer
+        /// </summary>
+        /// <returns></returns>
         public Tuple<int, int> GetPriceAndPayed()
         {
             Console.Write("Ange pris: ");
@@ -28,6 +32,12 @@ namespace CashRegister_Console
             return priceAndPayed;
         }
 
+        /// <summary>
+        /// Calculates change based on price and payed
+        /// </summary>
+        /// <param name="price"></param>
+        /// <param name="payed"></param>
+        /// <returns></returns>
         public List<int> MakeChange(int price, int payed)
         {
             int difference = payed - price;
@@ -52,6 +62,10 @@ namespace CashRegister_Console
             return change;
         }
 
+        /// <summary>
+        /// Print change denominations to command line
+        /// </summary>
+        /// <param name="change"></param>
         public void PrintChange(List<int> change)
         {
             Console.WriteLine("Växel tillbaka:");
@@ -67,6 +81,12 @@ namespace CashRegister_Console
             PrintDenominator("en", change.Where(item => item == 1).Count(), true);
         }
 
+        /// <summary>
+        /// Helper method to print denominations
+        /// </summary>
+        /// <param name="value"></param>
+        /// <param name="quantity"></param>
+        /// <param name="coin"></param>
         private void PrintDenominator(string value, int quantity, bool coin)
         {
             string moneyTypeSingular;
